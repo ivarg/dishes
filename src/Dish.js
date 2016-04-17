@@ -7,6 +7,7 @@ import React, {
   ListView,
 } from 'react-native';
 
+import DishInfo from './DishInfo.js';
 
 class Dish extends React.Component {
   constructor(props) {
@@ -14,12 +15,19 @@ class Dish extends React.Component {
   }
 
   render() {
+    var imgSrc = {uri: this.props.elem.img};
+    console.log(imgSrc);
+    if (imgSrc.uri == undefined) {
+      imgSrc = require('../img/generic-dish.png');
+    }
+
     return (
       <TouchableOpacity style={styles.left} onPress={() => {
+        this.props.nav.push({component: DishInfo, props: {elem: this.props.elem}})
       }}>
         <View style={styles.dish}>
           <Image
-            source={{uri: this.props.elem.img}}
+            source={imgSrc}
             style={styles.thumb}
           />
           <Text style={styles.text}>{this.props.elem.name}</Text>

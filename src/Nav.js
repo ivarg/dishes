@@ -9,12 +9,12 @@ import React, {
 } from 'react-native';
 
 import DishList from './DishList.js';
+import DishInfo from './DishInfo.js';
 import AddDish from './AddDish.js';
 
 
 
 class Nav extends Component {
-
 
   constructor(props) {
     super(props);
@@ -43,9 +43,12 @@ class Nav extends Component {
   }
 
   addButton(route, nav, inde, navState) {
+    if (route.component !== DishList) {
+      return;
+    }
     return (
       <TouchableOpacity style={styles.left} onPress={() => {
-        nav.push({id: 'add'});
+        nav.push({component: AddDish});
       }}>
         <Text style={styles.navtext}>Add</Text>
       </TouchableOpacity>
@@ -53,14 +56,13 @@ class Nav extends Component {
   }
 
   componentDidMount() {
-    //console.log('navigator mounted!!')
   }
 
   render() {
     return (
       <Navigator
         style={styles.navigator}
-        initialRoute={{id:'main'}}
+        initialRoute={{component: DishList}}
         renderScene={this.navRenderScene}
         navigationBar={
           <Navigator.NavigationBar style={styles.navbar} routeMapper={this.navBarRouteMapper} />
@@ -70,14 +72,22 @@ class Nav extends Component {
   }
 
   navRenderScene(route, nav) {
+    if (route.component) {
+      return React.createElement(route.component, Object.assign({}, {nav: nav}, route.props));
+    }
+
     switch (route.id) {
       case 'main':
           return (
-            <DishList/>
+            <DishList nav={nav}/>
           );
       case 'add':
           return (
             <AddDish/>
+          );
+      case 'info':
+          return (
+            <DishInfo/>
           );
     }
   }
@@ -85,23 +95,15 @@ class Nav extends Component {
 
 const styles = StyleSheet.create({
   navigator: {
-    //justifyContent: 'space-between',
-    //backgroundColor: '#97f',
-    //borderWidth: 1,
-    //borderColor: 'red',
   },
   navbar: {
-    //backgroundColor: '#9d6',
   },
   left: {
     flex: 1,
-    //backgroundColor: '#976',
     justifyContent: 'center',
     padding: 10
   },
   navtext: {
-    //flex: 1,
-    //color: 'blue',
     alignSelf: 'flex-end'
   },
 });

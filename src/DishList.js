@@ -11,6 +11,7 @@ var dishes = [
   {name: 'Hemmagjord Pizza', img: 'http://cdn3.cdnme.se/cdn/9-1/407408/images/2010/ri_10567_3_83600844.jpg'},
   {name: 'Halloumiburgare', img: 'http://www.sainsburysmagazine.co.uk/blog/cache/com_zoo/images/garlic-mushroom-and-halloumi-burger_a9f32af5e355cb2c370dfdb7085b6651.jpg'},
   {name: 'Linssoppa med Chorizo', img: 'http://www.hemmetsjournal.se/ImageProvider/upload/hj/recept/bilder/Linssoppa-2-74cef3fb340d4e4d9c41f27c649fffa0__b468m.jpg'},
+  {name: 'Pannkaka'},
 ];
 
 class DishList extends React.Component {
@@ -35,7 +36,7 @@ class DishList extends React.Component {
     return (
       <ListView
         dataSource={this.state.dataSource}
-        renderRow={this.renderRow}
+        renderRow={this.renderRow.bind(this)}
         contentContainerStyle={styles.dishlist}
       />
     );
@@ -43,7 +44,7 @@ class DishList extends React.Component {
 
   renderRow(elem) {
     return (
-      <Dish elem={elem}/>
+      <Dish nav={this.props.nav} elem={elem}/>
     );
   }
 }
