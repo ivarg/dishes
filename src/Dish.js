@@ -39,17 +39,20 @@ class Dish extends React.Component {
 
 var styles = StyleSheet.create({
   dish: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
     width: 91,
     height: 90,
     margin: 7,
-    //borderWidth: 1,
   },
   thumb: {
-    width: 91,
-    height: 60,
+    width: 80,
+    height: 80,
   },
   text: {
-    fontSize: 11,
+    marginLeft: 10,
+    padding: 10,
+    fontSize: 16,
   }
 });
 

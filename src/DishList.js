@@ -51,8 +51,6 @@ class DishList extends React.Component {
 
 var styles = StyleSheet.create({
   dishlist: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
     marginTop: 65,
   },
 })
